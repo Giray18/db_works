@@ -1,0 +1,8 @@
+resources:
+  jobs:
+    example_job:
+      name: "[${bundle.target}] example notebook job"
+      tasks:
+        - task_key: run_example
+          notebook_task:
+            notebook_path: ../notebooks/example.py

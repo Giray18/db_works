@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Databricks Asset Bundles / VS Code extension local state
+.databricks/
+

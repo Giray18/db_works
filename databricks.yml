@@ -1,0 +1,12 @@
+bundle:
+  name: db_works
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-b4d14cbd-4705.cloud.databricks.com
