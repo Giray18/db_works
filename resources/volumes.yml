@@ -1,0 +1,8 @@
+resources:
+  volumes:
+    raw_volume:
+      catalog_name: workspace
+      schema_name: default
+      name: raw
+      volume_type: MANAGED
+      comment: Landing zone for raw source files (e.g. XML) before bronze ingestion.

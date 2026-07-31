@@ -1,0 +1,14 @@
+resources:
+  schemas:
+    bronze_schema:
+      catalog_name: workspace
+      name: dev_finance_cockpit_bronze
+      comment: Bronze layer - raw ingested tables, one per source sheet/file.
+    silver_schema:
+      catalog_name: workspace
+      name: dev_finance_cockpit_silver
+      comment: Silver layer - cleaned and conformed tables.
+    gold_schema:
+      catalog_name: workspace
+      name: dev_finance_cockpit_gold
+      comment: Gold layer - aggregated tables for reporting.

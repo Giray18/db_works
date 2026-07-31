@@ -6,3 +6,13 @@ resources:
         - task_key: run_example
           notebook_task:
             notebook_path: ../notebooks/example.py
+
+    ingest_finance_cockpit_to_bronze:
+      name: "[${bundle.target}] ingest finance cockpit to bronze"
+      tasks:
+        - task_key: ingest
+          notebook_task:
+            notebook_path: ../notebooks/01_ingest_finance_cockpit_to_bronze.py
+            base_parameters:
+              target_catalog: ${resources.schemas.bronze_schema.catalog_name}
+              target_schema: ${resources.schemas.bronze_schema.name}
