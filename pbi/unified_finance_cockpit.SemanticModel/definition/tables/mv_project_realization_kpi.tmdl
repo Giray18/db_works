@@ -1,0 +1,175 @@
+table mv_project_realization_kpi
+	lineageTag: e8aec419-7391-43b7-835b-f5806fc2a68b
+
+	column project_id
+		dataType: string
+		lineageTag: df479dbc-5c8f-4e1e-bba5-4db07e9bedaa
+		summarizeBy: none
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_name
+		dataType: string
+		lineageTag: edd15523-a253-43e4-89bc-252f4ec88abe
+		summarizeBy: none
+		sourceColumn: project_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_status
+		dataType: string
+		lineageTag: 5f502271-934e-4fc7-8aa6-288df3a3e934
+		summarizeBy: none
+		sourceColumn: project_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_id
+		dataType: string
+		lineageTag: 24623297-064b-423d-a2ef-6c0d68bb966d
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_name
+		dataType: string
+		lineageTag: b04f1daf-c747-4d6f-b078-1f0bb94f67ed
+		summarizeBy: none
+		sourceColumn: department_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column funding_source
+		dataType: string
+		lineageTag: e74af834-0bbe-4c6c-b37c-3bc552bb594e
+		summarizeBy: none
+		sourceColumn: funding_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column eu_program
+		dataType: string
+		lineageTag: edcf38fc-9d88-4da3-a9a9-54f7e2263eb0
+		summarizeBy: none
+		sourceColumn: eu_program
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: b1401431-b5cd-4741-9a38-bca03fd04f6c
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column planned_amount
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 74a9088b-8d61-4d7c-8e8d-d430b7f0f6c9
+		summarizeBy: sum
+		sourceColumn: planned_amount
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_share_amount
+		dataType: int64
+		formatString: 0
+		lineageTag: e86b1be2-9502-4974-9fa4-09e227b88315
+		summarizeBy: sum
+		sourceColumn: city_share_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column external_share_amount
+		dataType: int64
+		formatString: 0
+		lineageTag: d06b31b3-b6e2-42ac-9581-82ce074ce6e0
+		summarizeBy: sum
+		sourceColumn: external_share_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_contracted_value
+		dataType: double
+		lineageTag: 1be3a21a-3b56-41b9-bf2f-2043c0c0af5b
+		summarizeBy: sum
+		sourceColumn: total_contracted_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column contract_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 86a13f0f-e96e-4874-b42f-3f1da5d9a637
+		summarizeBy: sum
+		sourceColumn: contract_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_invoiced_amount
+		dataType: double
+		lineageTag: a03eb97c-0b3b-41eb-b8d2-3856db27b4cf
+		summarizeBy: sum
+		sourceColumn: total_invoiced_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_paid_amount
+		dataType: double
+		lineageTag: 53ae6818-ef84-49a4-bf2e-f6f80927f21a
+		summarizeBy: sum
+		sourceColumn: total_paid_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column realization_pct
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cd91659d-d06a-4fd9-93d7-e90302c4746f
+		summarizeBy: sum
+		sourceColumn: realization_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column contracted_pct
+		dataType: double
+		lineageTag: 04c60638-0405-4c88-8a01-452680a68521
+		summarizeBy: sum
+		sourceColumn: contracted_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column eu_share_pct
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 5be44b29-5bb5-4ce0-bd1d-f9e9933de21d
+		summarizeBy: sum
+		sourceColumn: eu_share_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	partition mv_project_realization_kpi = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-b4d14cbd-4705.cloud.databricks.com", "/sql/1.0/warehouses/dca22ded3b00a624", [Catalog="workspace", Database="dev_finance_cockpit_gold", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    mv_project_realization_kpi_dev_finance_cockpit_gold_workspace_View = Source{[Item="mv_project_realization_kpi",Schema="dev_finance_cockpit_gold",Catalog="workspace",Kind="View"]}[Data]
+				in
+				    mv_project_realization_kpi_dev_finance_cockpit_gold_workspace_View
+
+	annotation PBI_ResultType = Table
+

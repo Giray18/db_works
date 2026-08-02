@@ -1,0 +1,65 @@
+table fact_procurement_bids
+	lineageTag: ed46a7a2-3ce9-493e-8760-67578b4edbb0
+
+	column bid_id
+		dataType: string
+		lineageTag: b4b4d430-2902-41cb-a048-2805f4008007
+		summarizeBy: none
+		sourceColumn: bid_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column procedure_id
+		dataType: string
+		lineageTag: acc24952-9fe9-4b07-84c2-ec7a42f69c44
+		summarizeBy: none
+		sourceColumn: procedure_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_id
+		dataType: string
+		lineageTag: 09c039d1-5b58-401e-809a-70b79d994e6d
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column bid_amount
+		dataType: double
+		lineageTag: c4d76820-476e-4573-853e-86b84b3928df
+		summarizeBy: sum
+		sourceColumn: bid_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column bid_status
+		dataType: string
+		lineageTag: b131bec8-20f5-4202-85bb-185668c4a366
+		summarizeBy: none
+		sourceColumn: bid_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_awarded
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 432dd5f4-4b99-46d5-a0c3-05f6b15c4276
+		summarizeBy: none
+		sourceColumn: is_awarded
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_procurement_bids = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-b4d14cbd-4705.cloud.databricks.com", "/sql/1.0/warehouses/dca22ded3b00a624", [Catalog="workspace", Database="dev_finance_cockpit_gold", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    fact_procurement_bids_dev_finance_cockpit_gold_workspace_View = Source{[Item="fact_procurement_bids",Schema="dev_finance_cockpit_gold",Catalog="workspace",Kind="View"]}[Data]
+				in
+				    fact_procurement_bids_dev_finance_cockpit_gold_workspace_View
+
+	annotation PBI_ResultType = Table
+

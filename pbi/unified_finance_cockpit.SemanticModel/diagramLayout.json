@@ -1,0 +1,217 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 790.31992606720178
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 975.650387654642,
+            "y": 694.68034424203142
+          },
+          "nodeIndex": "dim_contract",
+          "nodeLineageTag": "1300d212-4f90-4e31-a74f-6732528c541e",
+          "size": {
+            "height": 329.40333386967103,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 695.23144134405288,
+            "y": 0
+          },
+          "nodeIndex": "dim_cpv",
+          "nodeLineageTag": "5f834f56-13d2-4785-a993-5b436e8a66ad",
+          "size": {
+            "height": 156.94955602038158,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1341.6703291402378,
+            "y": 801.48048908582825
+          },
+          "nodeIndex": "dim_date",
+          "nodeLineageTag": "f7250f83-4596-426b-9c38-988d9fd1d104",
+          "size": {
+            "height": 307.63022279431584,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 409.230591,
+            "y": 701.19855808395891
+          },
+          "nodeIndex": "dim_supplier",
+          "nodeLineageTag": "4306f5d4-3977-48fe-aaa8-44dd5eb19cba",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1277.2954809999999,
+            "y": 0
+          },
+          "nodeIndex": "dim_department",
+          "nodeLineageTag": "50be8ea0-0615-44f7-9fbc-aa19e44ef843",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 405.61798570474963,
+            "y": 921.58529708769674
+          },
+          "nodeIndex": "fact_contract_financials",
+          "nodeLineageTag": "c6bfb484-4cb7-42a1-8b31-2ea7c6d76c1e",
+          "size": {
+            "height": 310.99619134218415,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 464.62840014640915,
+            "y": 1956.3907310468198
+          },
+          "nodeIndex": "fact_procurement_bids",
+          "nodeLineageTag": "ed46a7a2-3ce9-493e-8760-67578b4edbb0",
+          "size": {
+            "height": 252.94955602038158,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 1717.9513439401603,
+            "y": 371.34319273130228
+          },
+          "nodeIndex": "fact_invoices",
+          "nodeLineageTag": "5aa6fafd-0361-47d1-b798-cf09fb24f1af",
+          "size": {
+            "height": 397.98311268436828,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 800.80725196110575,
+            "y": 1401.1231626558329
+          },
+          "nodeIndex": "fact_procurement_performance",
+          "nodeLineageTag": "2d21c885-9d44-4bfd-9439-de069c1bbe90",
+          "size": {
+            "height": 277.44533419147365,
+            "width": 225.09244430142098
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 1.7715610000000055,
+            "y": 0
+          },
+          "nodeIndex": "fact_project_financials",
+          "nodeLineageTag": "321f82c5-bacd-46e6-a526-91324f023ea7",
+          "size": {
+            "height": 356.62177913649975,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 1337.3025926931391,
+            "y": 415.2289184384851
+          },
+          "nodeIndex": "fact_purchase_orders",
+          "nodeLineageTag": "a25a0618-a35c-484a-b50a-d61f7975a2b7",
+          "size": {
+            "height": 308.62177913649975,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 988.41616163126321,
+            "y": 112.72232251757822
+          },
+          "nodeIndex": "dim_project",
+          "nodeLineageTag": "d925d0f4-a365-4f84-b4c1-98f112510f97",
+          "size": {
+            "height": 354.46151299999997,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 129.10923328403641,
+            "y": 1858.3396028696709
+          },
+          "nodeIndex": "dim_procedure",
+          "nodeLineageTag": "e3dbf9d2-b76a-4281-a59e-c0b8b00f40aa",
+          "size": {
+            "height": 344.99155634218414,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 466.12956562321415,
+            "y": 1392.7303001586361
+          },
+          "nodeIndex": "mv_procurement_savings_kpi",
+          "nodeLineageTag": "c97bb38d-060c-4d7c-aba1-26c9359d47dc",
+          "size": {
+            "height": 453.65533580048645,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 396.02129968940153,
+            "y": 48.8239102081173
+          },
+          "nodeIndex": "mv_project_realization_kpi",
+          "nodeLineageTag": "e8aec419-7391-43b7-835b-f5806fc2a68b",
+          "size": {
+            "height": 546.47301758059143,
+            "width": 234
+          },
+          "zIndex": 10
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 56.447393005377741,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

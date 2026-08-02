@@ -1,0 +1,102 @@
+table dim_procedure
+	lineageTag: e3dbf9d2-b76a-4281-a59e-c0b8b00f40aa
+
+	column evidence_number
+		dataType: string
+		lineageTag: fcaf3bd5-b253-420f-b1c8-d03a4238e586
+		summarizeBy: none
+		sourceColumn: evidence_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column procedure_id
+		dataType: string
+		lineageTag: 6123f120-0375-4f40-a3a9-fbf516e74729
+		summarizeBy: none
+		sourceColumn: procedure_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_id
+		dataType: string
+		lineageTag: c6d64760-50cc-4629-a662-ca0102734aff
+		summarizeBy: none
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column procedure_type
+		dataType: string
+		lineageTag: c466f151-e800-4e5a-8758-485fbfbd035f
+		summarizeBy: none
+		sourceColumn: procedure_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column publication_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 43728f0c-e654-4ed3-a330-fa71a1a1e1a0
+		summarizeBy: none
+		sourceColumn: publication_date
+
+		variation Variation
+			isDefault
+			relationship: aec40f38-074d-425f-8101-dfff245bb692
+			defaultHierarchy: LocalDateTable_83f9fb06-e929-4f68-b4f2-8db3e4566a24.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column selection_decision_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 47ba1da4-d706-4e67-9caa-6626eb13079b
+		summarizeBy: none
+		sourceColumn: selection_decision_date
+
+		variation Variation
+			isDefault
+			relationship: 28236742-0334-42e2-8d11-6bcef4b3019a
+			defaultHierarchy: LocalDateTable_55f0dca3-cdac-4155-9bfd-2e18a7ea291c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column procedure_status
+		dataType: string
+		lineageTag: c522bcc4-c67e-4176-94be-409a67bfd1a3
+		summarizeBy: none
+		sourceColumn: procedure_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_code
+		dataType: string
+		lineageTag: 8dae6469-4b48-46e3-bf3b-7a80ee09de60
+		summarizeBy: none
+		sourceColumn: cpv_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column planned_quarter
+		dataType: string
+		lineageTag: 22477917-c0c1-427d-a24c-be9c945086a1
+		summarizeBy: none
+		sourceColumn: planned_quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_procedure = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-b4d14cbd-4705.cloud.databricks.com", "/sql/1.0/warehouses/dca22ded3b00a624", [Catalog="workspace", Database="dev_finance_cockpit_gold", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    dim_procedure_dev_finance_cockpit_gold_workspace_View = Source{[Item="dim_procedure",Schema="dev_finance_cockpit_gold",Catalog="workspace",Kind="View"]}[Data]
+				in
+				    dim_procedure_dev_finance_cockpit_gold_workspace_View
+
+	annotation PBI_ResultType = Table
+

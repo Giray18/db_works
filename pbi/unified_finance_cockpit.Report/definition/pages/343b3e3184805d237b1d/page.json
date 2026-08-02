@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "343b3e3184805d237b1d",
+  "displayName": "Project Realization",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "dfeb3144c154e3a30e31",
+      "target": "0bc304ea9c889029e770",
+      "type": "DataFilter"
+    }
+  ]
+}

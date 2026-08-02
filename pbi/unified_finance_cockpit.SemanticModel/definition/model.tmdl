@@ -1,0 +1,43 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dim_contract","dim_date","dim_cpv","dim_department","dim_procedure","dim_project","dim_supplier","fact_contract_financials","fact_invoices","fact_procurement_bids","fact_procurement_performance","fact_project_financials","fact_purchase_orders","mv_procurement_savings_kpi","mv_project_realization_kpi"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_contract
+ref table DateTableTemplate_2c34a1ce-4827-4fca-a401-ed841027bcb7
+ref table LocalDateTable_e8cc5038-81a6-40f2-9947-e85b5604354d
+ref table LocalDateTable_4129536d-d6aa-4ff6-a40c-cc364723864d
+ref table LocalDateTable_9e83d544-0215-48f8-bdd8-d21f4b98564e
+ref table dim_date
+ref table LocalDateTable_29b66247-cf6c-46dc-a9a2-453fabf5024c
+ref table dim_cpv
+ref table dim_department
+ref table dim_procedure
+ref table LocalDateTable_83f9fb06-e929-4f68-b4f2-8db3e4566a24
+ref table LocalDateTable_55f0dca3-cdac-4155-9bfd-2e18a7ea291c
+ref table dim_project
+ref table dim_supplier
+ref table fact_contract_financials
+ref table fact_invoices
+ref table LocalDateTable_d0d3c2e7-7e64-4d47-94a7-e5998c6eb38f
+ref table LocalDateTable_c4d40ed4-c85d-4bba-9e9f-007aba0bd452
+ref table fact_procurement_bids
+ref table fact_procurement_performance
+ref table fact_project_financials
+ref table fact_purchase_orders
+ref table LocalDateTable_2ea97c5c-b4c5-4d3a-b3af-3b80e598b1ba
+ref table mv_procurement_savings_kpi
+ref table mv_project_realization_kpi
+
+ref cultureInfo en-US
+

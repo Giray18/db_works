@@ -1,0 +1,659 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "349baef1963003e0b056",
+  "position": {
+    "x": 216.88149688149687,
+    "y": 400.49896049896051,
+    "z": 2003,
+    "height": 270.10395010395007,
+    "width": 999.25155925155923,
+    "tabOrder": 1005
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "project_id"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.project_id",
+              "nativeQueryRef": "Project id",
+              "active": true,
+              "displayName": "Project id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "evidence_number"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.evidence_number",
+              "nativeQueryRef": "evidence_number",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "procedure_id"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.procedure_id",
+              "nativeQueryRef": "procedure_id",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_procurement_bids"
+                    }
+                  },
+                  "Property": "bid_id"
+                }
+              },
+              "queryRef": "fact_procurement_bids.bid_id",
+              "nativeQueryRef": "bid_id",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_procurement_bids"
+                        }
+                      },
+                      "Property": "bid_amount"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(fact_procurement_bids.bid_amount)",
+              "nativeQueryRef": "Sum of bid amount",
+              "displayName": "Sum of bid amount"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "Estimated Value (Awarded)"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.Estimated Value (Awarded)",
+              "nativeQueryRef": "Estimated value (Awarded)",
+              "displayName": "Estimated value (Awarded)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "Awarded Bid Amount"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.Awarded Bid Amount",
+              "nativeQueryRef": "Awarded bid amount",
+              "displayName": "Awarded bid amount"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "Rejected Bid Amount"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.Rejected Bid Amount",
+              "nativeQueryRef": "Rejected bid amount",
+              "displayName": "Rejected bid amount"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "Procurement Savings (Awarded)"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.Procurement Savings (Awarded)",
+              "nativeQueryRef": "Procurement savings (Awarded)",
+              "displayName": "Procurement savings (Awarded)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "isDefaultSort": true
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Rows"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "mv_procurement_savings_kpi.project_id"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "project_id"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "mv_procurement_savings_kpi.evidence_number"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "evidence_number"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "mv_procurement_savings_kpi.procedure_id"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "procedure_id"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "fact_procurement_bids.bid_id"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_procurement_bids"
+                    }
+                  },
+                  "Property": "bid_id"
+                }
+              }
+            ],
+            "isPinned": true
+          }
+        ],
+        "root": {
+          "children": [
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'PRJ-2024-009'"
+                  }
+                }
+              ],
+              "isToggled": true,
+              "children": [
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'EV-2024-009'"
+                      }
+                    }
+                  ],
+                  "isToggled": true,
+                  "children": [
+                    {
+                      "identityValues": [
+                        {
+                          "Literal": {
+                            "Value": "'PROC-2024-0009'"
+                          }
+                        }
+                      ],
+                      "isToggled": true,
+                      "children": [
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'BID-2024-00030'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        },
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'BID-2024-00031'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'PRJ-2024-045'"
+                  }
+                }
+              ],
+              "isToggled": true,
+              "children": [
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'EV-2024-045'"
+                      }
+                    }
+                  ],
+                  "isToggled": true,
+                  "children": [
+                    {
+                      "identityValues": [
+                        {
+                          "Literal": {
+                            "Value": "'PROC-2024-0042'"
+                          }
+                        }
+                      ],
+                      "isToggled": true,
+                      "children": [
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'BID-2024-00110'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'PRJ-2023-002'"
+                  }
+                }
+              ],
+              "isToggled": true,
+              "children": [
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'EV-2023-002'"
+                      }
+                    }
+                  ],
+                  "isToggled": true,
+                  "children": [
+                    {
+                      "identityValues": [
+                        {
+                          "Literal": {
+                            "Value": "'PROC-2023-0002'"
+                          }
+                        }
+                      ],
+                      "isToggled": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "fact_procurement_bids"
+                                }
+                              },
+                              "Property": "bid_amount"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#D64550'"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#FFFFFF'"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "Sum(fact_procurement_bids.bid_amount)"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Breakdown Chart'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F4F1E0'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "273616b370a11ada38c8",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "mv_procurement_savings_kpi"
+              }
+            },
+            "Property": "project_id"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "8b2c354474ba25031630",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "mv_procurement_savings_kpi"
+              }
+            },
+            "Property": "procedure_id"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "8c7f7956477748d8282e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "mv_procurement_savings_kpi"
+              }
+            },
+            "Property": "evidence_number"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "29bbea4f3ed0c145c19b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_procurement_bids"
+              }
+            },
+            "Property": "bid_id"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "aadb7ee06758900e6e10",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_procurement_bids"
+                  }
+                },
+                "Property": "bid_amount"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "2b879bf2a500308ce0d2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "mv_procurement_savings_kpi"
+              }
+            },
+            "Property": "Awarded Bid Amount"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1a32b7efed6aab5449a3",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "mv_procurement_savings_kpi"
+              }
+            },
+            "Property": "Rejected Bid Amount"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5785caab54a73064267e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "mv_procurement_savings_kpi"
+              }
+            },
+            "Property": "Estimated Value (Awarded)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "95ef215ab11006c30b27",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "mv_procurement_savings_kpi"
+              }
+            },
+            "Property": "Procurement Savings (Awarded)"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

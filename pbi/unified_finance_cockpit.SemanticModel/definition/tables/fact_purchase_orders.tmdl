@@ -1,0 +1,72 @@
+table fact_purchase_orders
+	lineageTag: a25a0618-a35c-484a-b50a-d61f7975a2b7
+
+	column purchase_order_id
+		dataType: string
+		lineageTag: a6c6ebb9-c8f3-4187-bd29-16e82665cd78
+		summarizeBy: none
+		sourceColumn: purchase_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_id
+		dataType: string
+		lineageTag: 652d9b19-e4f9-41f5-b9ce-d323130697d9
+		summarizeBy: none
+		sourceColumn: contract_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_id
+		dataType: string
+		lineageTag: f8a32bbf-f18e-48c0-a8ca-3bf6ac3b069a
+		summarizeBy: none
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2296413f-65d6-4323-976a-f7db01eaf2f9
+		summarizeBy: none
+		sourceColumn: order_date
+
+		variation Variation
+			isDefault
+			relationship: d1087adf-4a87-477b-b440-139210ec35e9
+			defaultHierarchy: LocalDateTable_2ea97c5c-b4c5-4d3a-b3af-3b80e598b1ba.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_amount
+		dataType: double
+		lineageTag: f631e9ea-cc29-4368-a1bc-d0220ac46ef3
+		summarizeBy: sum
+		sourceColumn: order_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column order_description
+		dataType: string
+		lineageTag: b7a72c3b-d446-400c-a170-b556d23f3042
+		summarizeBy: none
+		sourceColumn: order_description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_purchase_orders = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-b4d14cbd-4705.cloud.databricks.com", "/sql/1.0/warehouses/dca22ded3b00a624", [Catalog="workspace", Database="dev_finance_cockpit_gold", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    fact_purchase_orders_dev_finance_cockpit_gold_workspace_View = Source{[Item="fact_purchase_orders",Schema="dev_finance_cockpit_gold",Catalog="workspace",Kind="View"]}[Data]
+				in
+				    fact_purchase_orders_dev_finance_cockpit_gold_workspace_View
+
+	annotation PBI_ResultType = Table
+

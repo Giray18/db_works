@@ -1,0 +1,132 @@
+table fact_invoices
+	lineageTag: 5aa6fafd-0361-47d1-b798-cf09fb24f1af
+
+	column invoice_id
+		dataType: string
+		lineageTag: 1b19b3be-b658-47d1-bcc9-84ecb8b8ff8e
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchase_order_id
+		dataType: string
+		lineageTag: b326a762-0d43-4b1a-a8d4-0d689da71c4a
+		summarizeBy: none
+		sourceColumn: purchase_order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_id
+		dataType: string
+		lineageTag: 619ab24f-e358-4a24-9735-c7539f06b4c1
+		summarizeBy: none
+		sourceColumn: contract_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_id
+		dataType: string
+		lineageTag: 7d766cc8-ee5c-4cf2-ae9b-b3e46506731b
+		summarizeBy: none
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column issue_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b106a09b-c254-4b3d-81f6-f8f1e30d9d39
+		summarizeBy: none
+		sourceColumn: issue_date
+
+		variation Variation
+			isDefault
+			relationship: d5e17f26-fd31-415f-88df-a88b105096d6
+			defaultHierarchy: LocalDateTable_d0d3c2e7-7e64-4d47-94a7-e5998c6eb38f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column due_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c766c46d-585a-4f17-b1dc-08744c1038ee
+		summarizeBy: none
+		sourceColumn: due_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column payment_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8ddef5ab-476a-45f8-9aa7-785ddeafa352
+		summarizeBy: none
+		sourceColumn: payment_date
+
+		variation Variation
+			isDefault
+			relationship: e29145fb-0c7c-4291-b443-c2a3e487f44b
+			defaultHierarchy: LocalDateTable_c4d40ed4-c85d-4bba-9e9f-007aba0bd452.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column invoice_amount
+		dataType: double
+		lineageTag: aa540b9b-f4ba-4dce-a422-c67e8667bf2f
+		summarizeBy: sum
+		sourceColumn: invoice_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column currency
+		dataType: string
+		lineageTag: 0e738571-e723-403b-a541-b6665d687a55
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_status
+		dataType: string
+		lineageTag: 924ee60a-ad94-4038-abfb-a87766ecfba3
+		summarizeBy: none
+		sourceColumn: payment_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_status
+		dataType: string
+		lineageTag: 4ccb5ec2-ea4c-4330-92bc-78e31dd6ad72
+		summarizeBy: none
+		sourceColumn: invoice_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_late
+		dataType: int64
+		formatString: 0
+		lineageTag: e74487ab-6112-4ff0-83a4-58f062afadca
+		summarizeBy: sum
+		sourceColumn: days_late
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_invoices = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-b4d14cbd-4705.cloud.databricks.com", "/sql/1.0/warehouses/dca22ded3b00a624", [Catalog="workspace", Database="dev_finance_cockpit_gold", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    fact_invoices_dev_finance_cockpit_gold_workspace_View = Source{[Item="fact_invoices",Schema="dev_finance_cockpit_gold",Catalog="workspace",Kind="View"]}[Data]
+				in
+				    fact_invoices_dev_finance_cockpit_gold_workspace_View
+
+	annotation PBI_ResultType = Table
+

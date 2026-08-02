@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "unified_finance_cockpit"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "847a10df-ddfd-4942-b03e-9540503aa131"
+  }
+}

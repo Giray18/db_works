@@ -1,0 +1,87 @@
+table dim_project
+	lineageTag: d925d0f4-a365-4f84-b4c1-98f112510f97
+
+	column project_id
+		dataType: string
+		lineageTag: a3eba36e-f767-4307-a2e2-3fde0878d1cc
+		summarizeBy: none
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_name
+		dataType: string
+		lineageTag: 18d78aa5-ef02-427b-958d-87b3a4671022
+		summarizeBy: none
+		sourceColumn: project_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_status
+		dataType: string
+		lineageTag: 8964c2a5-0d22-433f-a749-63d89e24f76f
+		summarizeBy: none
+		sourceColumn: project_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column funding_source
+		dataType: string
+		lineageTag: 640f8853-b24a-41cf-ab97-ad96bfdfd466
+		summarizeBy: none
+		sourceColumn: funding_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column funding_type
+		dataType: string
+		lineageTag: c6b463fa-8d62-423c-a0d7-26b3e1b9d998
+		summarizeBy: none
+		sourceColumn: funding_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column eu_program
+		dataType: string
+		lineageTag: 6705da57-cb5b-45b2-9861-5be43b6bb2b8
+		summarizeBy: none
+		sourceColumn: eu_program
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 86226613-da76-41af-8aa3-e125c634736b
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_id
+		dataType: string
+		lineageTag: 0a389578-5857-43a4-9f0b-0059640de1ff
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_code
+		dataType: string
+		lineageTag: edc81dc6-5a24-40ff-a3cc-bdd49e3f7337
+		summarizeBy: none
+		sourceColumn: cpv_code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_project = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-b4d14cbd-4705.cloud.databricks.com", "/sql/1.0/warehouses/dca22ded3b00a624", [Catalog="workspace", Database="dev_finance_cockpit_gold", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    dim_project_dev_finance_cockpit_gold_workspace_View = Source{[Item="dim_project",Schema="dev_finance_cockpit_gold",Catalog="workspace",Kind="View"]}[Data]
+				in
+				    dim_project_dev_finance_cockpit_gold_workspace_View
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "5a42d14b18960493d201",
+  "displayName": "Procurement Board",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

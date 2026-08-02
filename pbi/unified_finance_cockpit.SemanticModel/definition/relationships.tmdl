@@ -1,0 +1,107 @@
+relationship 2de5cd97-b109-460a-a843-098e61cff1e8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_contract.signature_date
+	toColumn: LocalDateTable_e8cc5038-81a6-40f2-9947-e85b5604354d.Date
+
+relationship 38f33159-d774-4015-a9cd-92fb8c979605
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_contract.contract_deadline
+	toColumn: LocalDateTable_4129536d-d6aa-4ff6-a40c-cc364723864d.Date
+
+relationship bda3232e-ab70-46c0-996c-7f13a74be01e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_contract.current_deadline
+	toColumn: LocalDateTable_9e83d544-0215-48f8-bdd8-d21f4b98564e.Date
+
+relationship 507a41a2-ddc9-44c5-bf7f-36805216d1bf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_date.date
+	toColumn: LocalDateTable_29b66247-cf6c-46dc-a9a2-453fabf5024c.Date
+
+relationship aec40f38-074d-425f-8101-dfff245bb692
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_procedure.publication_date
+	toColumn: LocalDateTable_83f9fb06-e929-4f68-b4f2-8db3e4566a24.Date
+
+relationship 28236742-0334-42e2-8d11-6bcef4b3019a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_procedure.selection_decision_date
+	toColumn: LocalDateTable_55f0dca3-cdac-4155-9bfd-2e18a7ea291c.Date
+
+relationship d5e17f26-fd31-415f-88df-a88b105096d6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_invoices.issue_date
+	toColumn: LocalDateTable_d0d3c2e7-7e64-4d47-94a7-e5998c6eb38f.Date
+
+relationship e29145fb-0c7c-4291-b443-c2a3e487f44b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_invoices.payment_date
+	toColumn: LocalDateTable_c4d40ed4-c85d-4bba-9e9f-007aba0bd452.Date
+
+relationship d1087adf-4a87-477b-b440-139210ec35e9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_purchase_orders.order_date
+	toColumn: LocalDateTable_2ea97c5c-b4c5-4d3a-b3af-3b80e598b1ba.Date
+
+relationship 4b5cd35b-6f05-6a66-96af-35da368a096b
+	fromColumn: fact_procurement_bids.procedure_id
+	toColumn: mv_procurement_savings_kpi.procedure_id
+
+relationship 9430c0aa-2c75-5191-6ab9-36ec6a364e3a
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: fact_procurement_performance.procedure_id
+	toColumn: mv_procurement_savings_kpi.procedure_id
+
+relationship d8f65466-0457-1559-1978-ff24b209a5be
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: fact_project_financials.project_id
+	toColumn: mv_project_realization_kpi.project_id
+
+relationship 1f7a6122-727b-1453-e9b0-a1f6548b0afb
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: dim_project.project_id
+	toColumn: mv_project_realization_kpi.project_id
+
+relationship 9a5c14e0-697c-b70b-c75d-2242e2ec33b8
+	fromColumn: dim_project.department_id
+	toColumn: dim_department.department_id
+
+relationship f599b93d-4e59-dca7-4ed1-5888561cda78
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: dim_contract.contract_id
+	toColumn: fact_contract_financials.contract_id
+
+relationship 93ae5f65-56f2-ad30-8523-130169977743
+	fromColumn: fact_procurement_bids.procedure_id
+	toColumn: dim_procedure.procedure_id
+
+relationship 42c2b7fe-c545-f018-e7e5-32c04fed97d5
+	fromColumn: dim_contract.supplier_id
+	toColumn: dim_supplier.supplier_id
+
+relationship 1f3de895-c70f-d45b-0f0e-b827a16e8049
+	fromColumn: dim_project.cpv_code
+	toColumn: dim_cpv.cpv_code
+
+relationship a4eba5d3-ccce-addb-824c-0cdc46957b5f
+	fromColumn: fact_invoices.purchase_order_id
+	toColumn: fact_purchase_orders.purchase_order_id
+
+relationship 524d4e5d-ac17-33d0-706c-2c602f96c2fd
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: dim_project.project_id
+	toColumn: dim_contract.project_id
+
+relationship af72d593-aaa2-4a7f-17fb-2683925cccf4
+	fromColumn: fact_purchase_orders.contract_id
+	toColumn: dim_contract.contract_id
+
+relationship d5081dd6-2c24-54ea-f34f-a6aa491bfdb8
+	fromColumn: fact_invoices.due_date
+	toColumn: dim_date.date
+

@@ -1,0 +1,370 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "81ca6f19e0da4d495905",
+  "position": {
+    "x": 216.88149688149687,
+    "y": 157.006237006237,
+    "z": 2006,
+    "height": 232.84823284823284,
+    "width": 1049.8128898128898,
+    "tabOrder": 1008
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "mv_procurement_savings_kpi"
+                        }
+                      },
+                      "Property": "procurement_savings"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(mv_procurement_savings_kpi.procurement_savings)",
+              "nativeQueryRef": "Procurement savings",
+              "displayName": "Procurement savings"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "mv_procurement_savings_kpi"
+                        }
+                      },
+                      "Property": "bid_count"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "CountNonNull(mv_procurement_savings_kpi.bid_count)",
+              "nativeQueryRef": "Total bid count under project",
+              "displayName": "Total bid count under project"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "Savings %"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.Savings %",
+              "nativeQueryRef": "Saving pct under procurement",
+              "displayName": "Saving pct under procurement"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "Rejected Bid Count"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.Awarded Bid Count",
+              "nativeQueryRef": "Rejected bid count",
+              "displayName": "Rejected bid count"
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "project_id"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.project_id",
+              "nativeQueryRef": "project_id"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "mv_procurement_savings_kpi"
+                      }
+                    },
+                    "Property": "procurement_savings"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "label": [
+        {
+          "properties": {
+            "matchValueAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "value": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "smallMultiplesHeader": [
+        {
+          "properties": {
+            "showBlankAs": {
+              "expr": {
+                "Literal": {
+                  "Value": "''"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'General Stats'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F4F1E0'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "0dd8c5a56da60b828944",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "mv_procurement_savings_kpi"
+              }
+            },
+            "Property": "project_id"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "34fd8b4463d322666345",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "mv_procurement_savings_kpi"
+                  }
+                },
+                "Property": "procurement_savings"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fa9bffa0767b4b9d8c5d",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "mv_procurement_savings_kpi"
+                  }
+                },
+                "Property": "bid_count"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "7790beeababadbd74cd0",
+        "field": {
+          "Arithmetic": {
+            "Left": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "mv_procurement_savings_kpi"
+                      }
+                    },
+                    "Property": "savings_pct"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "Right": {
+              "ScopedEval": {
+                "Expression": {
+                  "Aggregation": {
+                    "Expression": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "mv_procurement_savings_kpi"
+                          }
+                        },
+                        "Property": "savings_pct"
+                      }
+                    },
+                    "Function": 0
+                  }
+                },
+                "Scope": []
+              }
+            },
+            "Operator": 3
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "a7e1f5f0d52839074b20",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "mv_procurement_savings_kpi"
+              }
+            },
+            "Property": "Savings %"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "45b7a018d43cdda5b54c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "mv_procurement_savings_kpi"
+              }
+            },
+            "Property": "Rejected Bid Count"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

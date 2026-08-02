@@ -1,0 +1,30 @@
+table dim_department
+	lineageTag: 50be8ea0-0615-44f7-9fbc-aa19e44ef843
+
+	column department_id
+		dataType: string
+		lineageTag: 8f2d6bcf-2848-4493-9fd1-7326795419f8
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_name
+		dataType: string
+		lineageTag: fa1ae46a-a3f0-444d-9948-4d217d6e16ed
+		summarizeBy: none
+		sourceColumn: department_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_department = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-b4d14cbd-4705.cloud.databricks.com", "/sql/1.0/warehouses/dca22ded3b00a624", [Catalog="workspace", Database="dev_finance_cockpit_gold", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    dim_department_dev_finance_cockpit_gold_workspace_View = Source{[Item="dim_department",Schema="dev_finance_cockpit_gold",Catalog="workspace",Kind="View"]}[Data]
+				in
+				    dim_department_dev_finance_cockpit_gold_workspace_View
+
+	annotation PBI_ResultType = Table
+

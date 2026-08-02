@@ -1,0 +1,198 @@
+table mv_procurement_savings_kpi
+	lineageTag: c97bb38d-060c-4d7c-aba1-26c9359d47dc
+
+	measure 'Savings %' = SELECTEDVALUE(mv_procurement_savings_kpi[savings_pct])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 65548fc8-f71d-4b30-a4bc-7c090e05f65a
+
+	measure 'Rejected Bid Count' =
+			
+			CALCULATE(
+			    COUNTROWS(fact_procurement_bids),
+			    fact_procurement_bids[bid_status] <> "Odabrana"
+			)
+		formatString: 0
+		lineageTag: b8703730-4634-47d5-9733-bba11ebf090f
+
+	measure 'Awarded Bid Amount' =
+			
+			IF(
+			    SELECTEDVALUE(fact_procurement_bids[bid_status]) = "Odabrana",
+			    SELECTEDVALUE(fact_procurement_bids[bid_amount]),
+			    BLANK()
+			)
+		lineageTag: 8f347b7a-f9a7-4bb7-b954-b5d5b01baa07
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Rejected Bid Amount' =
+			
+			IF(
+			    SELECTEDVALUE(fact_procurement_bids[bid_status]) <> "Odabrana",
+			    SELECTEDVALUE(fact_procurement_bids[bid_amount]),
+			    BLANK()
+			)
+		lineageTag: 0aaa34f0-f741-49fd-a691-8ee3b844a21f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Estimated Value (Awarded)' = ```
+			
+			SUMX(
+			    FILTER(
+			        fact_procurement_bids,
+			        fact_procurement_bids[bid_status] = "Odabrana"
+			    ),
+			    RELATED(fact_procurement_performance[estimated_value])
+			)
+			
+			```
+		lineageTag: 092fe5fd-b48f-4bf7-a0e9-8f60be16be4c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Procurement Savings (Awarded)' =
+			
+			SUMX(
+			    FILTER(
+			        fact_procurement_bids,
+			        fact_procurement_bids[bid_status] = "Odabrana"
+			    ),
+			    RELATED(mv_procurement_savings_kpi[procurement_savings])
+			)
+		lineageTag: a5fee2f2-3e50-497a-be1e-0f217f4390e1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column procedure_id
+		dataType: string
+		lineageTag: 6ee812aa-d847-4ff2-b545-3ba6c64e7af9
+		summarizeBy: none
+		sourceColumn: procedure_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column evidence_number
+		dataType: string
+		lineageTag: 631ed80f-d9b0-438c-9fc0-a0ae27300053
+		summarizeBy: none
+		sourceColumn: evidence_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_id
+		dataType: string
+		lineageTag: c4710793-0fc9-4041-a61e-512f6bae0481
+		summarizeBy: none
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_name
+		dataType: string
+		lineageTag: 7fe4a8b7-1078-4229-905b-cc2567beac0d
+		summarizeBy: none
+		sourceColumn: project_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_id
+		dataType: string
+		lineageTag: 551e2bc1-6d82-459b-860d-4f451a429597
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_name
+		dataType: string
+		lineageTag: 6ccd906a-06e3-4605-b0bd-17a92862aedd
+		summarizeBy: none
+		sourceColumn: department_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_code
+		dataType: string
+		lineageTag: 000ac276-75c5-4205-9679-a775f81088ce
+		summarizeBy: none
+		sourceColumn: cpv_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column cpv_description
+		dataType: string
+		lineageTag: f4edb37f-9919-4d18-b735-1b2ada21604e
+		summarizeBy: none
+		sourceColumn: cpv_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column estimated_value
+		dataType: double
+		lineageTag: 79874ba1-f9b5-4806-961c-fcc592e191f1
+		summarizeBy: none
+		sourceColumn: estimated_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column awarded_bid_amount
+		dataType: double
+		lineageTag: a398863a-7e25-4e82-952e-2862a58d8a6d
+		summarizeBy: none
+		sourceColumn: awarded_bid_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column awarded_supplier_name
+		dataType: string
+		lineageTag: 32e408a1-1443-47fd-8de0-b03091454e54
+		summarizeBy: none
+		sourceColumn: awarded_supplier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column procurement_savings
+		dataType: double
+		lineageTag: 33069253-83d8-4e9f-a66a-138527e91004
+		summarizeBy: none
+		sourceColumn: procurement_savings
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column savings_pct
+		dataType: double
+		lineageTag: 674be2c9-a15f-4790-a8fb-30b4a0150031
+		summarizeBy: none
+		sourceColumn: savings_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column bid_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 9cead2c1-ac9e-45f7-933e-7beee1ab9073
+		summarizeBy: none
+		sourceColumn: bid_count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition mv_procurement_savings_kpi = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-b4d14cbd-4705.cloud.databricks.com", "/sql/1.0/warehouses/dca22ded3b00a624", [Catalog="workspace", Database="dev_finance_cockpit_gold", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    mv_procurement_savings_kpi_dev_finance_cockpit_gold_workspace_View = Source{[Item="mv_procurement_savings_kpi",Schema="dev_finance_cockpit_gold",Catalog="workspace",Kind="View"]}[Data]
+				in
+				    mv_procurement_savings_kpi_dev_finance_cockpit_gold_workspace_View
+
+	annotation PBI_ResultType = Table
+

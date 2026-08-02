@@ -1,0 +1,110 @@
+table dim_contract
+	lineageTag: 1300d212-4f90-4e31-a74f-6732528c541e
+
+	column contract_id
+		dataType: string
+		lineageTag: d3ee5e64-5e7a-4d17-8d34-501322db9515
+		summarizeBy: none
+		sourceColumn: contract_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_id
+		dataType: string
+		lineageTag: 55c14546-518c-428b-9e87-3a4ca7164ae1
+		summarizeBy: none
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget_item_id
+		dataType: string
+		lineageTag: d73dbe0f-ce7b-4ef8-85db-8d3a0ea0024d
+		summarizeBy: none
+		sourceColumn: budget_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column procedure_id
+		dataType: string
+		lineageTag: 4908b0b0-fe43-4d68-8a71-eff3ccabdc0c
+		summarizeBy: none
+		sourceColumn: procedure_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_id
+		dataType: string
+		lineageTag: e02d5de7-f5e5-46a0-9b01-219ea2c6517d
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column signature_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3e3f8a62-5098-48d3-8f4f-6d6077401157
+		summarizeBy: none
+		sourceColumn: signature_date
+
+		variation Variation
+			isDefault
+			relationship: 2de5cd97-b109-460a-a843-098e61cff1e8
+			defaultHierarchy: LocalDateTable_e8cc5038-81a6-40f2-9947-e85b5604354d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column contract_deadline
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4641d02b-4241-4604-8ef3-9c14c08d2674
+		summarizeBy: none
+		sourceColumn: contract_deadline
+
+		variation Variation
+			isDefault
+			relationship: 38f33159-d774-4015-a9cd-92fb8c979605
+			defaultHierarchy: LocalDateTable_4129536d-d6aa-4ff6-a40c-cc364723864d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column contract_status
+		dataType: string
+		lineageTag: a6b76b66-0e16-4ebf-9e0b-503074fe880a
+		summarizeBy: none
+		sourceColumn: contract_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_deadline
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 619a1817-7ccd-4afe-b853-5684a6701d6d
+		summarizeBy: none
+		sourceColumn: current_deadline
+
+		variation Variation
+			isDefault
+			relationship: bda3232e-ab70-46c0-996c-7f13a74be01e
+			defaultHierarchy: LocalDateTable_9e83d544-0215-48f8-bdd8-d21f4b98564e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_contract = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-b4d14cbd-4705.cloud.databricks.com", "/sql/1.0/warehouses/dca22ded3b00a624", [Catalog="workspace", Database="dev_finance_cockpit_gold", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    dim_contract_dev_finance_cockpit_gold_workspace_View = Source{[Item="dim_contract",Schema="dev_finance_cockpit_gold",Catalog="workspace",Kind="View"]}[Data]
+				in
+				    dim_contract_dev_finance_cockpit_gold_workspace_View
+
+	annotation PBI_ResultType = Table
+

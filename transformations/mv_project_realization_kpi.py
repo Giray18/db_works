@@ -37,7 +37,7 @@ def mv_project_realization_kpi():
         .withColumn(
             "realization_pct",
             F.round(
-                F.when(F.col("planned_amount") > 0, F.col("total_paid_amount") / F.col("planned_amount")), 4
+                F.when(F.col("total_contracted_value") > 0, F.col("total_paid_amount") / F.col("total_contracted_value")), 4
             ),
         )
         .withColumn(
@@ -49,7 +49,7 @@ def mv_project_realization_kpi():
         .withColumn(
             "eu_share_pct",
             F.round(
-                F.when(F.col("planned_amount") > 0, F.col("external_share_amount") / F.col("planned_amount")), 4
+                F.when(F.col("total_contracted_value") > 0, F.col("external_share_amount") / F.col("total_contracted_value")), 4
             ),
         )
         .select(

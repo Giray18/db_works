@@ -1,0 +1,61 @@
+table fact_contract_financials
+	lineageTag: c6bfb484-4cb7-42a1-8b31-2ea7c6d76c1e
+
+	column contract_id
+		dataType: string
+		lineageTag: aaaad93f-ae6b-4495-9a0b-8380a5ea2bac
+		summarizeBy: none
+		sourceColumn: contract_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_amount
+		dataType: double
+		lineageTag: 67fb1b08-fe8d-408a-95c0-f5a897e32008
+		summarizeBy: sum
+		sourceColumn: contract_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_annex_adjustments
+		dataType: double
+		lineageTag: faba8e5e-bca2-4c99-80f9-43381b768b5f
+		summarizeBy: sum
+		sourceColumn: total_annex_adjustments
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column annex_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 03898053-c339-4d6e-86af-59317641c7df
+		summarizeBy: sum
+		sourceColumn: annex_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_contract_value
+		dataType: double
+		lineageTag: 8b29c821-d1c5-4f93-9f03-1b1ea6f15d40
+		summarizeBy: sum
+		sourceColumn: total_contract_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_contract_financials = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-b4d14cbd-4705.cloud.databricks.com", "/sql/1.0/warehouses/dca22ded3b00a624", [Catalog="workspace", Database="dev_finance_cockpit_gold", QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    fact_contract_financials_dev_finance_cockpit_gold_workspace_View = Source{[Item="fact_contract_financials",Schema="dev_finance_cockpit_gold",Catalog="workspace",Kind="View"]}[Data]
+				in
+				    fact_contract_financials_dev_finance_cockpit_gold_workspace_View
+
+	annotation PBI_ResultType = Table
+
