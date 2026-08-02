@@ -227,3 +227,7 @@ _sanity_results.txt
 docs/medallion_pipeline_architecture.drawio
 docs/finance_cockpit_pipeline.md
 docs/.$medallion_pipeline_architecture.drawio.bkp
+_drop_orphans.txt
+_gold_check.txt
+_kpi_check.txt
+_star_check.txt
