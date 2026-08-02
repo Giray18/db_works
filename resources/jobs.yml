@@ -1,18 +1,17 @@
 resources:
   jobs:
-    example_job:
-      name: "[${bundle.target}] example notebook job"
+    ingest_finance_cockpit_medallion:
+      name: "[${bundle.target}] ingest finance cockpit (bronze + silver, incremental)"
       tasks:
-        - task_key: run_example
+        - task_key: split_excel_to_csv
           notebook_task:
-            notebook_path: ../notebooks/example.py
-
-    ingest_finance_cockpit_to_bronze:
-      name: "[${bundle.target}] ingest finance cockpit to bronze"
-      tasks:
-        - task_key: ingest
-          notebook_task:
-            notebook_path: ../notebooks/01_ingest_finance_cockpit_to_bronze.py
+            notebook_path: ../notebooks/00_split_excel_to_csv.py
             base_parameters:
-              target_catalog: ${resources.schemas.bronze_schema.catalog_name}
-              target_schema: ${resources.schemas.bronze_schema.name}
+              source_xlsx: /Volumes/workspace/default/raw/lakehouse_city_unified_finance_cockpit_poc_dataset.xlsx
+              csv_landing_root: /Volumes/workspace/default/raw/csv_landing
+              run_id: "{{job.run_id}}"
+        - task_key: run_medallion_pipeline
+          depends_on:
+            - task_key: split_excel_to_csv
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.finance_cockpit_pipeline.id}

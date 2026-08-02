@@ -1,0 +1,21 @@
+resources:
+  pipelines:
+    finance_cockpit_pipeline:
+      name: "[${bundle.target}] finance cockpit medallion pipeline"
+      # Nominal default only - every table below publishes to a fully-qualified
+      # catalog.schema.table name instead, so bronze and silver tables can live
+      # in their own schemas from this one pipeline. Free Edition allows only
+      # one active pipeline per pipeline type, so bronze+silver share a single
+      # pipeline rather than being split into separate ones.
+      catalog: ${resources.schemas.bronze_schema.catalog_name}
+      schema: ${resources.schemas.bronze_schema.name}
+      serverless: true
+      continuous: false
+      configuration:
+        finance_cockpit.catalog: ${resources.schemas.bronze_schema.catalog_name}
+        finance_cockpit.bronze_schema: ${resources.schemas.bronze_schema.name}
+        finance_cockpit.silver_schema: ${resources.schemas.silver_schema.name}
+        finance_cockpit.csv_landing_root: /Volumes/workspace/default/raw/csv_landing
+      libraries:
+        - glob:
+            include: ../transformations/**
