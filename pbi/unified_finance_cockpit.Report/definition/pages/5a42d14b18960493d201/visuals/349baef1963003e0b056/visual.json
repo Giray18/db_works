@@ -97,8 +97,8 @@
                 }
               },
               "queryRef": "Sum(fact_procurement_bids.bid_amount)",
-              "nativeQueryRef": "Sum of bid amount",
-              "displayName": "Sum of bid amount"
+              "nativeQueryRef": "Bid amount",
+              "displayName": "Bid amount"
             },
             {
               "field": {
@@ -112,8 +112,8 @@
                 }
               },
               "queryRef": "mv_procurement_savings_kpi.Estimated Value (Awarded)",
-              "nativeQueryRef": "Estimated value (Awarded)",
-              "displayName": "Estimated value (Awarded)"
+              "nativeQueryRef": "Plan proc. estimated value (Awarded)",
+              "displayName": "Plan proc. estimated value (Awarded)"
             },
             {
               "field": {
@@ -379,6 +379,40 @@
                         {
                           "Literal": {
                             "Value": "'PROC-2023-0002'"
+                          }
+                        }
+                      ],
+                      "isToggled": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'PRJ-2023-001'"
+                  }
+                }
+              ],
+              "isToggled": true,
+              "children": [
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'EV-2023-001'"
+                      }
+                    }
+                  ],
+                  "isToggled": true,
+                  "children": [
+                    {
+                      "identityValues": [
+                        {
+                          "Literal": {
+                            "Value": "'PROC-2023-0001'"
                           }
                         }
                       ],

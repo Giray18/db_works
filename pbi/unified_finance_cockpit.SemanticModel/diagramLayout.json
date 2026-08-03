@@ -5,7 +5,7 @@
       "ordinal": 0,
       "scrollPosition": {
         "x": 0,
-        "y": 790.31992606720178
+        "y": 48.8239102081173
       },
       "nodes": [
         {
@@ -49,8 +49,8 @@
         },
         {
           "location": {
-            "x": 409.230591,
-            "y": 701.19855808395891
+            "x": 703.309717,
+            "y": 694.112314083959
           },
           "nodeIndex": "dim_supplier",
           "nodeLineageTag": "4306f5d4-3977-48fe-aaa8-44dd5eb19cba",
@@ -75,8 +75,8 @@
         },
         {
           "location": {
-            "x": 405.61798570474963,
-            "y": 921.58529708769674
+            "x": 690.83930670474967,
+            "y": 941.07246808769673
           },
           "nodeIndex": "fact_contract_financials",
           "nodeLineageTag": "c6bfb484-4cb7-42a1-8b31-2ea7c6d76c1e",
@@ -179,8 +179,8 @@
         },
         {
           "location": {
-            "x": 466.12956562321415,
-            "y": 1392.7303001586361
+            "x": 211.02478162321415,
+            "y": 1139.3970771586364
           },
           "nodeIndex": "mv_procurement_savings_kpi",
           "nodeLineageTag": "c97bb38d-060c-4d7c-aba1-26c9359d47dc",

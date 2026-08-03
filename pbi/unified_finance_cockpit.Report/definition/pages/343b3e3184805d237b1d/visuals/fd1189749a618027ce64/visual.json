@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fd1189749a618027ce64",
   "position": {
-    "x": 216.67711598746084,
-    "y": 400.25078369905958,
+    "x": 205.89323843416369,
+    "y": 408.14234875444839,
     "z": 4000,
-    "height": 267.83699059561127,
-    "width": 1050.282131661442,
+    "height": 267.84341637010675,
+    "width": 1060.4412811387901,
     "tabOrder": 4000
   },
   "visual": {
@@ -45,6 +45,21 @@
               "nativeQueryRef": "Project id",
               "active": true,
               "displayName": "Project id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_procurement_savings_kpi"
+                    }
+                  },
+                  "Property": "procedure_id"
+                }
+              },
+              "queryRef": "mv_procurement_savings_kpi.procedure_id",
+              "nativeQueryRef": "procedure_id",
+              "active": true
             }
           ]
         },
@@ -67,8 +82,8 @@
                 }
               },
               "queryRef": "Sum(mv_project_realization_kpi.planned_amount)",
-              "nativeQueryRef": "Planned amount",
-              "displayName": "Planned amount"
+              "nativeQueryRef": "Budget plan amount",
+              "displayName": "Budget plan amount"
             },
             {
               "field": {
@@ -87,8 +102,23 @@
                 }
               },
               "queryRef": "Sum(mv_project_realization_kpi.total_contracted_value)",
-              "nativeQueryRef": "Total contracted value",
-              "displayName": "Total contracted value"
+              "nativeQueryRef": "Total cont. value (Amend)",
+              "displayName": "Total cont. value (Amend)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "mv_project_realization_kpi"
+                    }
+                  },
+                  "Property": "Awarded bid First"
+                }
+              },
+              "queryRef": "mv_project_realization_kpi.Awarded bid First",
+              "nativeQueryRef": "Awarded bid",
+              "displayName": "Awarded bid"
             },
             {
               "field": {
@@ -137,26 +167,6 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "fact_project_financials"
-                        }
-                      },
-                      "Property": "city_share_amount"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(fact_project_financials.city_share_amount)",
-              "nativeQueryRef": "City share amount",
-              "displayName": "City share amount"
-            },
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
                           "Entity": "mv_project_realization_kpi"
                         }
                       },
@@ -180,35 +190,15 @@
                           "Entity": "mv_project_realization_kpi"
                         }
                       },
-                      "Property": "realization_pct"
+                      "Property": "contracted_pct"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(mv_project_realization_kpi.realization_pct)",
-              "nativeQueryRef": "Realization pct.",
-              "displayName": "Realization pct."
-            },
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "fact_project_financials"
-                        }
-                      },
-                      "Property": "contract_count"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(fact_project_financials.contract_count)",
-              "nativeQueryRef": "Contract qty.",
-              "displayName": "Contract qty."
+              "queryRef": "Sum(mv_project_realization_kpi.contracted_pct)",
+              "nativeQueryRef": "Cont. pct. (Budget Surp)",
+              "displayName": "Cont. pct. (Budget Surp)"
             }
           ]
         }
@@ -260,6 +250,13 @@
               }
             ],
             "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "mv_procurement_savings_kpi.procedure_id"
+            ],
+            "isCollapsed": true,
+            "isPinned": true
           }
         ],
         "root": {
@@ -283,6 +280,38 @@
                 }
               ],
               "isToggled": true
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'ODJ-003'"
+                  }
+                }
+              ],
+              "isToggled": true,
+              "children": [
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'PRJ-2023-001'"
+                      }
+                    }
+                  ],
+                  "isToggled": true
+                },
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'PRJ-2023-048'"
+                      }
+                    }
+                  ],
+                  "isToggled": true
+                }
+              ]
             }
           ]
         }
@@ -415,25 +444,6 @@
                   }
                 },
                 "Property": "eu_share_pct"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "f249e6550070a1e0260d",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "mv_project_realization_kpi"
-                  }
-                },
-                "Property": "realization_pct"
               }
             },
             "Function": 0

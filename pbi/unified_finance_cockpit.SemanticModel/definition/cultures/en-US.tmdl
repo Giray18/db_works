@@ -16280,6 +16280,16 @@ cultureInfo en-US
 			            "State": "Generated",
 			            "Weight": 0.75
 			          }
+			        },
+			        {
+			          "Plan proc. estimated value (Awarded)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -16301,6 +16311,38 @@ cultureInfo en-US
 			          "procurement savings": {
 			            "State": "Generated",
 			            "Weight": 0.75
+			          }
+			        }
+			      ]
+			    },
+			    "mv_project_realization_kpi.awarded_bid_first": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "mv_project_realization_kpi",
+			          "ConceptualProperty": "Awarded bid First"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "awarded bid first": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "bid first": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "Awarded bid": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -17297,6 +17339,39 @@ cultureInfo en-US
 			        }
 			      ]
 			    },
+			    "mv_project_realization_kpi_has_mv_procurement_savings_kpi": {
+			      "Binding": {
+			        "ConceptualEntity": "mv_project_realization_kpi"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "mv_project_realization_kpi": {
+			          "Target": {
+			            "Entity": "mv_project_realization_kpi"
+			          }
+			        },
+			        "mv_procurement_savings_kpi": {
+			          "Target": {
+			            "Entity": "mv_procurement_savings_kpi"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "mv_project_realization_kpi"
+			            },
+			            "Object": {
+			              "Role": "mv_procurement_savings_kpi"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mv_project_realization_kpis_have_mv_procurement_savings_kpis"
+			        }
+			      ]
+			    },
 			    "mv_project_realization_kpi_has_dim_project": {
 			      "Binding": {
 			        "ConceptualEntity": "mv_project_realization_kpi"
@@ -17360,6 +17435,39 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "mv_project_realization_kpis_have_fact_project_financials"
+			        }
+			      ]
+			    },
+			    "mv_procurement_savings_kpi_has_mv_project_realization_kpi": {
+			      "Binding": {
+			        "ConceptualEntity": "mv_procurement_savings_kpi"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "mv_procurement_savings_kpi": {
+			          "Target": {
+			            "Entity": "mv_procurement_savings_kpi"
+			          }
+			        },
+			        "mv_project_realization_kpi": {
+			          "Target": {
+			            "Entity": "mv_project_realization_kpi"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "mv_procurement_savings_kpi"
+			            },
+			            "Object": {
+			              "Role": "mv_project_realization_kpi"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mv_procurement_savings_kpis_have_mv_project_realization_kpis"
 			        }
 			      ]
 			    },
@@ -18039,6 +18147,72 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "dim_contracts_have_fact_contract_financials"
+			        }
+			      ]
+			    },
+			    "fact_procurement_performance_has_mv_project_realization_kpi_awarded_bid_first": {
+			      "Binding": {
+			        "ConceptualEntity": "fact_procurement_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fact_procurement_performance": {
+			          "Target": {
+			            "Entity": "fact_procurement_performance"
+			          }
+			        },
+			        "mv_project_realization_kpi.awarded_bid_first": {
+			          "Target": {
+			            "Entity": "mv_project_realization_kpi.awarded_bid_first"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fact_procurement_performance"
+			            },
+			            "Object": {
+			              "Role": "mv_project_realization_kpi.awarded_bid_first"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fact_procurement_performances_have_awarded_bid_first"
+			        }
+			      ]
+			    },
+			    "fact_procurement_bid_has_mv_project_realization_kpi_awarded_bid_first": {
+			      "Binding": {
+			        "ConceptualEntity": "fact_procurement_bids"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "fact_procurement_bid": {
+			          "Target": {
+			            "Entity": "fact_procurement_bid"
+			          }
+			        },
+			        "mv_project_realization_kpi.awarded_bid_first": {
+			          "Target": {
+			            "Entity": "mv_project_realization_kpi.awarded_bid_first"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "fact_procurement_bid"
+			            },
+			            "Object": {
+			              "Role": "mv_project_realization_kpi.awarded_bid_first"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "fact_procurement_bids_have_awarded_bid_first"
 			        }
 			      ]
 			    },

@@ -1,6 +1,21 @@
 table mv_project_realization_kpi
 	lineageTag: e8aec419-7391-43b7-835b-f5806fc2a68b
 
+	measure 'Awarded bid First' = ```
+			
+			SUMX(
+			    FILTER(
+			        fact_procurement_bids,
+			        fact_procurement_bids[bid_status] = "Odabrana"
+			    ),
+			    RELATED(fact_procurement_performance[awarded_bid_amount])
+			)
+			
+			```
+		lineageTag: 18965706-d4cf-4fee-aa91-b776e36911fa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column project_id
 		dataType: string
 		lineageTag: df479dbc-5c8f-4e1e-bba5-4db07e9bedaa
@@ -145,13 +160,12 @@ table mv_project_realization_kpi
 
 	column contracted_pct
 		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: 04c60638-0405-4c88-8a01-452680a68521
 		summarizeBy: sum
 		sourceColumn: contracted_pct
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column eu_share_pct
 		dataType: double

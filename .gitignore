@@ -224,7 +224,6 @@ __marimo__/
 scripts/
 _diag_results.txt
 _sanity_results.txt
-docs/medallion_pipeline_architecture.drawio
 docs/finance_cockpit_pipeline.md
 docs/.$medallion_pipeline_architecture.drawio.bkp
 _drop_orphans.txt

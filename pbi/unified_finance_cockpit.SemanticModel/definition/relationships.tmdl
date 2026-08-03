@@ -105,3 +105,9 @@ relationship d5081dd6-2c24-54ea-f34f-a6aa491bfdb8
 	fromColumn: fact_invoices.due_date
 	toColumn: dim_date.date
 
+relationship 3e7f3725-1424-df99-b22c-117f0b04829f
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: mv_procurement_savings_kpi.project_id
+	toColumn: mv_project_realization_kpi.project_id
+

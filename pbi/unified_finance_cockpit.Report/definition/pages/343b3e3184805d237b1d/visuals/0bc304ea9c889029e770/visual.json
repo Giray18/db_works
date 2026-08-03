@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "0bc304ea9c889029e770",
   "position": {
-    "x": 216.88149688149687,
-    "y": 157.006237006237,
+    "x": 205.89323843416369,
+    "y": 156.69750889679716,
     "z": 5000,
-    "height": 232.84823284823284,
-    "width": 1049.8128898128898,
+    "height": 233.22419928825622,
+    "width": 1060.4412811387901,
     "tabOrder": 5000
   },
   "visual": {
@@ -74,6 +74,26 @@
               "queryRef": "Min(mv_project_realization_kpi.department_id)",
               "nativeQueryRef": "Department id",
               "displayName": "Department id"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "mv_project_realization_kpi"
+                        }
+                      },
+                      "Property": "realization_pct"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(mv_project_realization_kpi.realization_pct)",
+              "nativeQueryRef": "Realization pct.",
+              "displayName": "Realization pct."
             }
           ]
         },
@@ -97,6 +117,26 @@
         }
       },
       "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "mv_project_realization_kpi"
+                      }
+                    },
+                    "Property": "project_status"
+                  }
+                },
+                "Function": 3
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
         "isDefaultSort": true
       }
     },
