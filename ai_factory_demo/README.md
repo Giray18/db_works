@@ -17,7 +17,7 @@ hand-rolled Anthropic tool-use loop, with each platform pillar visibly separated
 
 | Pillar | File | What it actually does |
 |---|---|---|
-| **Registries** | `registries.py` | `ToolRegistry` — versioned, owned catalog of the 3 callable tools. `DataProductRegistry` — wraps the 15-gold-table catalog as a governed data-asset registry. Both are what an agent is *allowed* to use, decided here, not hardcoded per-agent. |
+| **Registries** | `registries.py` | `ToolRegistry` — versioned, owned catalog of the 3 callable tools (one of which, table discovery, is itself picked by a condition — see below). `DataProductRegistry` — wraps the 15-gold-table catalog as a governed data-asset registry. Both are what an agent is *allowed* to use, decided here, not hardcoded per-agent. |
 | **Gateway** | `gateway.py` | `MODEL_ALIASES` maps a logical name (`"default"`, `"fast"`, `"accurate"`) to a real model id. All model calls route through this middleware, which also enforces a per-session request budget (`MAX_REQUESTS_PER_SESSION`). Swap the alias mapping and every agent using this gateway changes model without a code change. |
 | **Runtime** | `runtime.py` | LangChain 1.x's `create_agent()` — compiles the tool-calling loop into a LangGraph state machine. This is the actual execution engine; gateway and observability attach to it as middleware, registries supply its tools. |
 | **Observability** | `observability.py` | `@wrap_model_call` / `@wrap_tool_call` middleware logging every model and tool call (model used, tokens, latency, tool name/input) to `traces.jsonl`. In a production AI Factory this is what would feed LangSmith or an equivalent; here it's a plain file so it's inspectable with nothing else running. |
@@ -44,6 +44,39 @@ one-day build, and worth saying so plainly if asked in the meeting:
 - **Registries** are in-process Python objects, not a networked service other teams' agents
   could query. The interface (`list_entries()`, `get()`, `list_products()`) is what a real
   registry service would expose over an API.
+
+## Semantic table discovery (registries deciding between two tools)
+
+`rag_agent/multi_agent_patterns/semantic_search_agent.py` already showed what real semantic
+table search looks like — embed the question, cosine-similarity it against pre-computed table
+embeddings, return the closest matches instead of `list_gold_tables()`'s exhaustive dump. That
+version is written directly against the `anthropic` SDK. `semantic_index.py` is the same index
+format and model ported to a LangChain `@tool` (`search_relevant_tables` in `registries.py`) so
+it can sit in `DEFAULT_TOOL_REGISTRY` next to the other two.
+
+The registry doesn't ship both discovery tools at once — it picks one, via
+`_pick_discovery_tool()`:
+
+- **`CATALOG_SIZE_THRESHOLD = 25`** — below this many gold tables, `list_gold_tables` is
+  cheaper and just as accurate (this is `multi_agent_patterns/README.md`'s own finding, at the
+  current 15-table size); at or above it, semantic search keeps the discovery step's context
+  bounded instead of growing with every table added to the schema.
+- **`MIN_SIMILARITY = 0.2`** in `semantic_index.py` — a second filter *inside* the semantic
+  search itself: a top-k match that's still a weak match gets dropped rather than handed to the
+  agent as if it were relevant. Returning fewer than `top_k` results, or zero, is correct when
+  nothing actually matches.
+- **`DEMO_DISCOVERY`** env var overrides the size decision for a live walkthrough — `semantic`
+  or `exhaustive` force one or the other regardless of catalog size; unset (`auto`) uses the
+  threshold.
+
+At the repo's real 15-table catalog, `auto` always resolves to `list_gold_tables` — the point
+being demonstrated is the *condition*, not that semantic search is secretly better here.
+
+```bash
+python semantic_index.py                          # builds table_index.json (needed once for the semantic path)
+DEMO_DISCOVERY=semantic python demo.py "..."       # force the semantic-search discovery tool
+DEMO_DISCOVERY=exhaustive python demo.py "..."     # force the full-catalog dump
+```
 
 ## Running it
 

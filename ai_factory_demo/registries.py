@@ -17,12 +17,35 @@ from langchain_core.tools import tool
 
 import tools as _rag_tools
 from schema_catalog import CATALOG
+from semantic_index import search_relevant_tables as _search_relevant_tables
+
+# Discovery-tool selection condition: below this many tables, dumping the full catalog is
+# cheaper and just as accurate as a vector-search hop (see
+# rag_agent/multi_agent_patterns/README.md's compare.py finding at the current 15-table size).
+# At or above it, semantic search keeps the discovery step's context bounded instead of growing
+# with every table added to the gold schema.
+CATALOG_SIZE_THRESHOLD = 25
+
+# Overrides the size-based decision for demo purposes, mirroring demo.py's DEMO_MODEL_ALIAS
+# pattern: DEMO_DISCOVERY=semantic python demo.py "..." forces semantic search even below the
+# threshold, DEMO_DISCOVERY=exhaustive forces list_gold_tables. Unset (or "auto") uses the
+# catalog-size condition above.
+DISCOVERY_MODE = os.environ.get("DEMO_DISCOVERY", "auto")
 
 
 @tool
 def list_gold_tables() -> dict:
     """Lists all gold-layer tables available to query, each with its grain and a one-line business description."""
     return _rag_tools.list_gold_tables()
+
+
+@tool
+def search_relevant_tables(question: str) -> dict:
+    """Semantic alternative to list_gold_tables: embeds the question and returns only the gold
+    tables whose schema-plus-sample-data embedding is actually similar to it, instead of the
+    full catalog. Call this first, with the user's question verbatim, when it's the discovery
+    tool available to you."""
+    return {"tables": _search_relevant_tables(question)}
 
 
 @tool
@@ -61,8 +84,21 @@ class ToolRegistry:
         return [e["tool"] for e in self._entries.values()]
 
 
+def _pick_discovery_tool():
+    """The enhancement condition: which table-discovery tool the agent actually gets.
+    'auto' decides by catalog size; DEMO_DISCOVERY overrides it for a live walkthrough."""
+    if DISCOVERY_MODE == "semantic":
+        return search_relevant_tables, "1.0.0"
+    if DISCOVERY_MODE == "exhaustive":
+        return list_gold_tables, "1.0.0"
+    if len(CATALOG) >= CATALOG_SIZE_THRESHOLD:
+        return search_relevant_tables, "1.0.0"
+    return list_gold_tables, "1.0.0"
+
+
 DEFAULT_TOOL_REGISTRY = ToolRegistry()
-DEFAULT_TOOL_REGISTRY.register(list_gold_tables, version="1.0.0")
+_discovery_tool, _discovery_version = _pick_discovery_tool()
+DEFAULT_TOOL_REGISTRY.register(_discovery_tool, version=_discovery_version)
 DEFAULT_TOOL_REGISTRY.register(get_table_schema, version="1.0.0")
 DEFAULT_TOOL_REGISTRY.register(run_sql, version="1.1.0")  # e.g. bumped when the row cap last changed
 

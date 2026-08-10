@@ -1,3 +1,5 @@
 langchain
 langchain-anthropic
 python-dotenv
+sentence-transformers
+numpy
