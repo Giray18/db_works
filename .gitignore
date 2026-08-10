@@ -147,6 +147,13 @@ activemq-data/
 # SageMath parsed files
 *.sage.py
 
+# Generated semantic-search index (embeddings + raw sample data) - rebuild with
+# rag_agent/multi_agent_patterns/build_table_index.py
+rag_agent/multi_agent_patterns/table_index.json
+
+# Generated observability trace log - regenerated on every ai_factory_demo/demo.py run
+ai_factory_demo/traces.jsonl
+
 # Environments
 .env
 .envrc

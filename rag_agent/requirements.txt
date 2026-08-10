@@ -1,0 +1,5 @@
+anthropic
+databricks-sql-connector
+databricks-sdk
+streamlit
+python-dotenv

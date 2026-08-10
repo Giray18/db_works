@@ -235,6 +235,10 @@ scripts/
 pbi/
   unified_finance_cockpit.pbip   Power BI project (semantic model + report)
 
+rag_agent/                       Local Streamlit app: ask the gold schema a plain-English
+                                  question, answered by a Claude tool-use loop (schema catalog
+                                  + live SQL against the gold warehouse) - see rag_agent/README.md
+
 docs/
   medallion_pipeline_architecture.drawio   visual architecture diagram
 ```

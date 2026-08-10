@@ -1,0 +1,4 @@
+# Extra deps for this training/comparison folder only - not needed by the working app in
+# rag_agent/ (app.py, agent.py). Kept separate so the real app's requirements.txt stays lean.
+sentence-transformers
+numpy
