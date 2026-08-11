@@ -30,7 +30,7 @@ CATALOG_SIZE_THRESHOLD = 25
 # pattern: DEMO_DISCOVERY=semantic python demo.py "..." forces semantic search even below the
 # threshold, DEMO_DISCOVERY=exhaustive forces list_gold_tables. Unset (or "auto") uses the
 # catalog-size condition above.
-DISCOVERY_MODE = os.environ.get("DEMO_DISCOVERY", "auto")
+DISCOVERY_MODE = os.environ.get("DEMO_DISCOVERY", "semantic")
 
 
 @tool
@@ -100,7 +100,7 @@ DEFAULT_TOOL_REGISTRY = ToolRegistry()
 _discovery_tool, _discovery_version = _pick_discovery_tool()
 DEFAULT_TOOL_REGISTRY.register(_discovery_tool, version=_discovery_version)
 DEFAULT_TOOL_REGISTRY.register(get_table_schema, version="1.0.0")
-DEFAULT_TOOL_REGISTRY.register(run_sql, version="1.1.0")  # e.g. bumped when the row cap last changed
+DEFAULT_TOOL_REGISTRY.register(run_sql, version="1.1.0")  
 
 
 class DataProductRegistry:

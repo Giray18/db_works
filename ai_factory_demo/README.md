@@ -48,11 +48,14 @@ one-day build, and worth saying so plainly if asked in the meeting:
 ## Semantic table discovery (registries deciding between two tools)
 
 `rag_agent/multi_agent_patterns/semantic_search_agent.py` already showed what real semantic
-table search looks like — embed the question, cosine-similarity it against pre-computed table
-embeddings, return the closest matches instead of `list_gold_tables()`'s exhaustive dump. That
-version is written directly against the `anthropic` SDK. `semantic_index.py` is the same index
-format and model ported to a LangChain `@tool` (`search_relevant_tables` in `registries.py`) so
-it can sit in `DEFAULT_TOOL_REGISTRY` next to the other two.
+table search looks like — embed the question, compare it against pre-computed table embeddings,
+return the closest matches instead of `list_gold_tables()`'s exhaustive dump. That version is
+written directly against the `anthropic` SDK and stores its embeddings in a hand-rolled JSON
+file with a manual cosine-similarity loop. `semantic_index.py` ports the same idea to a
+LangChain `@tool` (`search_relevant_tables` in `registries.py`), backed by a persistent
+**Chroma** collection (`chroma_db/`) instead — Chroma owns the embedding calls (same
+`all-MiniLM-L6-v2` model), the on-disk index, and the nearest-neighbor search, so there's no
+hand-rolled similarity math here.
 
 The registry doesn't ship both discovery tools at once — it picks one, via
 `_pick_discovery_tool()`:
@@ -73,7 +76,7 @@ At the repo's real 15-table catalog, `auto` always resolves to `list_gold_tables
 being demonstrated is the *condition*, not that semantic search is secretly better here.
 
 ```bash
-python semantic_index.py                          # builds table_index.json (needed once for the semantic path)
+python semantic_index.py                          # builds/updates the chroma_db/ collection (needed once for the semantic path)
 DEMO_DISCOVERY=semantic python demo.py "..."       # force the semantic-search discovery tool
 DEMO_DISCOVERY=exhaustive python demo.py "..."     # force the full-catalog dump
 ```

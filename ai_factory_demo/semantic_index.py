@@ -2,9 +2,11 @@
 rag_agent/multi_agent_patterns/build_table_index.py + semantic_search.py (written for the
 raw Anthropic SDK agent) into something registries.py can wrap as a LangChain @tool.
 
-Same index format and embedding model as the original, so `python semantic_index.py` and
-`rag_agent/multi_agent_patterns/build_table_index.py` are interchangeable - either can produce
-table_index.json, this file just reads it from its own directory.
+Backed by a persistent Chroma collection instead of a hand-rolled JSON file + manual cosine
+similarity loop: Chroma owns the embedding call (same all-MiniLM-L6-v2 model as before, via its
+SentenceTransformerEmbeddingFunction wrapper), the on-disk index, and the nearest-neighbor
+search. `chroma_db/` holds the persisted collection - delete it and re-run build_index() to
+rebuild from scratch, same as deleting the old table_index.json used to mean.
 
 Kept as an *optional* discovery path, not a replacement for list_gold_tables:
 rag_agent/multi_agent_patterns/README.md found semantic search doesn't change the answer at
@@ -13,20 +15,25 @@ registries.py decides which discovery tool the agent actually gets using CATALOG
 rather than always shipping both.
 """
 
-import json
 import os
 import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "rag_agent"))
 
-import numpy as np
-from sentence_transformers import SentenceTransformer
+if __name__ == "__main__":
+    from dotenv import load_dotenv
+
+    load_dotenv(os.path.join(os.path.dirname(__file__), "..", "rag_agent", ".env"))
+
+import chromadb
+from chromadb.utils import embedding_functions
 
 import db
 from schema_catalog import CATALOG
 
 MODEL_NAME = "all-MiniLM-L6-v2"
-INDEX_PATH = os.path.join(os.path.dirname(__file__), "table_index.json")
+CHROMA_PATH = os.path.join(os.path.dirname(__file__), "chroma_db")
+COLLECTION_NAME = "gold_tables"
 SAMPLE_ROWS = 3
 
 # The filter condition: a top-k match that's still a weak match (e.g. everything under 0.2
@@ -34,8 +41,8 @@ SAMPLE_ROWS = 3
 # help it, so returning fewer than top_k - or zero - is correct when nothing is a good match.
 MIN_SIMILARITY = 0.2
 
-_model = None
-_index = None
+_client = None
+_collection = None
 
 
 def _table_text(table) -> str:
@@ -56,48 +63,52 @@ def _table_text(table) -> str:
     )
 
 
+def _get_collection():
+    global _client, _collection
+    if _collection is None:
+        _client = chromadb.PersistentClient(path=CHROMA_PATH)
+        ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name=MODEL_NAME)
+        # hnsw:space="cosine" makes query() return cosine distance (0 = identical, 2 = opposite),
+        # so similarity = 1 - distance matches the same scale MIN_SIMILARITY was tuned against.
+        _collection = _client.get_or_create_collection(
+            name=COLLECTION_NAME, embedding_function=ef, metadata={"hnsw:space": "cosine"}
+        )
+    return _collection
+
+
 def build_index() -> None:
-    model = SentenceTransformer(MODEL_NAME)
-    entries = []
+    collection = _get_collection()
+    ids, documents, metadatas = [], [], []
     for table in CATALOG.values():
         text = _table_text(table)
-        embedding = model.encode(text).tolist()
-        entries.append({"table_name": table.name, "text": text, "embedding": embedding})
+        ids.append(table.name)
+        documents.append(text)
+        metadatas.append({"table_name": table.name, "kind": table.kind})
         print(f"embedded {table.name} ({len(text)} chars)")
 
-    with open(INDEX_PATH, "w", encoding="utf-8") as f:
-        json.dump({"model": MODEL_NAME, "entries": entries}, f)
-    print(f"\nWrote {len(entries)} table embeddings to {INDEX_PATH}")
-
-
-def _load():
-    global _model, _index
-    if _index is None:
-        if not os.path.exists(INDEX_PATH):
-            raise FileNotFoundError(f"{INDEX_PATH} not found - run `python semantic_index.py` first.")
-        with open(INDEX_PATH, encoding="utf-8") as f:
-            _index = json.load(f)
-        _model = SentenceTransformer(_index["model"])
-    return _model, _index
+    collection.upsert(ids=ids, documents=documents, metadatas=metadatas)
+    print(f"\nUpserted {len(ids)} table embeddings into Chroma collection '{COLLECTION_NAME}' at {CHROMA_PATH}")
 
 
 def search_relevant_tables(question: str, top_k: int = 4) -> list[dict]:
     """Embeds `question` and scores it against every table's precomputed embedding by cosine
-    similarity. Returns up to `top_k` matches that clear MIN_SIMILARITY - the enhancement over
-    a plain top-k: a table only comes back if it's actually relevant, not just the closest of
-    a bad set."""
-    model, index = _load()
-    query_vec = model.encode(question)
-    scored = []
-    for entry in index["entries"]:
-        table_vec = np.array(entry["embedding"])
-        similarity = float(
-            np.dot(query_vec, table_vec) / (np.linalg.norm(query_vec) * np.linalg.norm(table_vec))
-        )
-        if similarity >= MIN_SIMILARITY:
-            scored.append((similarity, entry["table_name"]))
-    scored.sort(reverse=True)
-    return [{"table_name": name, "similarity": round(sim, 4)} for sim, name in scored[:top_k]]
+    similarity, via Chroma's nearest-neighbor search. Returns up to `top_k` matches that clear
+    MIN_SIMILARITY - the enhancement over a plain top-k: a table only comes back if it's
+    actually relevant, not just the closest of a bad set."""
+    collection = _get_collection()
+    if collection.count() == 0:
+        raise RuntimeError(f"Chroma collection '{COLLECTION_NAME}' is empty - run `python semantic_index.py` first.")
+
+    results = collection.query(query_texts=[question], n_results=top_k)
+    matches = []
+    print(f"\n[semantic_index] question={question!r} MIN_SIMILARITY={MIN_SIMILARITY}")
+    for table_name, distance in zip(results["ids"][0], results["distances"][0]):
+        similarity = round(1 - distance, 4)
+        kept = similarity >= MIN_SIMILARITY
+        print(f"[semantic_index]   {table_name:<32} cosine_similarity={similarity:.4f} {'KEEP' if kept else 'drop (below threshold)'}")
+        if kept:
+            matches.append({"table_name": table_name, "similarity": similarity})
+    return matches
 
 
 if __name__ == "__main__":
