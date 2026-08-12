@@ -154,6 +154,9 @@ rag_agent/multi_agent_patterns/table_index.json
 # Generated observability trace log - regenerated on every ai_factory_demo/demo.py run
 ai_factory_demo/traces.jsonl
 
+# Generated Chroma persistent vector store - rebuild with ai_factory_demo/semantic_index.py
+ai_factory_demo/chroma_db/
+
 # Environments
 .env
 .envrc
