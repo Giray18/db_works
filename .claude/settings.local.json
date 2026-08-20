@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/CihanGirayOner/Desktop/**)",
+      "WebFetch(domain:docs.databricks.com)",
+      "Bash(cat)",
+      "Bash(\"/c/Users/CihanGirayOner/Desktop/git_repos/db_works/db_works/.venv/Scripts/python.exe\" \"/c/Users/CihanGirayOner/Desktop/git_repos/db_works/db_works/scripts/_inspect_schema.py\")",
+      "WebSearch",
+      "Bash(databricks --version)",
+      "Bash(databricks bundle *)"
+    ]
+  }
+}

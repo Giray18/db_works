@@ -52,3 +52,12 @@ Review → Operations). This is the audit trail — don't edit past entries, add
   yet in `databricks.yml` — flagging per `ai_dlc/operations` guidance that adding one is an
   `ai_dlc/architecture` + human decision, not done here. Code changes remain uncommitted to
   git as of this entry.
+
+### 2026-08-20 — Committed to git
+
+- Commit: `8e3cd9d` on `main`, scoped to this unit of work
+  (`transformations/mv_avg_payment_delay_kpi.py`,
+  `transformations/quality_tests_gold_uniqueness.py`, and this folder's documents).
+- Verdict: approved (per human confirmation to commit)
+- Notes: Unit of work 001 is now fully closed out — Inception, Construction, Review, and
+  Operations gates all logged above.

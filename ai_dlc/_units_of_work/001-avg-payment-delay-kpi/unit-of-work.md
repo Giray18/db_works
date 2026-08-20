@@ -41,5 +41,5 @@ already exists on `fact_invoices`; there's no department-level rollup of it yet.
 
 ## Status
 
-`deployed (dev)` — live in the dev workspace, decision-logged. Code changes not yet
-committed to git — see `decision-log.md` Operations entry.
+`closed` — live in the dev workspace, reviewed and approved, committed (`8e3cd9d`). All
+gates logged in `decision-log.md`.
