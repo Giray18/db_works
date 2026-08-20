@@ -221,3 +221,17 @@ def test_unique_mv_project_realization_kpi():
         .count()
         .withColumnRenamed("count", "num_entries")
     )
+
+
+@dp.materialized_view(
+    name=f"{CATALOG}.{GOLD_SCHEMA}.test_unique_mv_avg_payment_delay_kpi",
+    comment="Fails the pipeline if mv_avg_payment_delay_kpi ever has more than one row per department_id.",
+)
+@dp.expect_or_fail("unique_key", "num_entries = 1")
+def test_unique_mv_avg_payment_delay_kpi():
+    return (
+        spark.read.table(f"{CATALOG}.{GOLD_SCHEMA}.mv_avg_payment_delay_kpi")
+        .groupBy("department_id")
+        .count()
+        .withColumnRenamed("count", "num_entries")
+    )
